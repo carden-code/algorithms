@@ -31,10 +31,10 @@ from typing import List
 
 def get_weather_randomness(temperatures: List[int]) -> int:
     result = 0
-    for index, elem in enumerate(temperatures):
-        tree = temperatures[index:index + 3]
-        if len(tree) == 3:
-            if tree[0] < tree[1] > tree[2]:
+    for index, _ in enumerate(temperatures):
+        slice = temperatures[index:index + 3]
+        if len(slice) == 3:
+            if slice[0] < slice[1] > slice[2]:
                 result += 1
         elif len(temperatures) == 1:
             result = 1
