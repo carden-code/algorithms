@@ -21,50 +21,36 @@ from typing import Tuple
 
 
 def get_sum(first_number: str, second_number: str) -> str:
-    result = ''
-    remainder = False
-    len_first = len(first_number)
-    len_second = len(second_number)
-    if len_first < len_second:
-        raznica = len_second - len_first
-        list_first = ['0'] * raznica
-        list_first.extend(list(first_number))
-        first_number = ''.join(list_first)
-    elif len_first > len_second:
-        raznica = len_first - len_second
-        list_second = ['0'] * raznica
-        list_second.extend(list(second_number))
-        second_number = ''.join(list_second)
+    # получить бинарное число в виде массива чисел (бит)
+    num1 = [*map(int, first_number)]
+    num2 = [*map(int, second_number)]
 
-    for index, num in enumerate(first_number[::-1]):
-        num_1 = int(num)
-        num_2 = int(second_number[::-1][index])
-        if num_1 == num_2:
-            if num_1 == 1:
+    # перевернуть числа для удобства выполнения операций
+    num1 = num1[::-1]
+    num2 = num2[::-1]
 
-                if remainder:
-                    result += '1'
-                    if index == len(first_number) - 1:
-                        result += '1'
-                else:
-                    result += '0'
-                    remainder = True
-                    if index == len(first_number) - 1:
-                        result += '1'
-            elif num_1 == 0:
-                if remainder:
-                    result += '1'
-                    remainder = False
-                else:
-                    result += '0'
-        else:
-            if remainder:
-                result += '0'
-                if index == len(first_number) - 1:
-                    result += '1'
-            else:
-                result += '1'
-    return result[::-1]
+    # дополнить числа нулями
+    size = max(len(num1), len(num2))
+
+    num1 += [0] * (size - len(num1))
+    num2 += [0] * (size - len(num2))
+
+    # сложить 2 числа
+    overflow = 0
+    res = []
+    for obj in zip(num1, num2):
+        value = obj[0] + obj[1] + overflow
+        overflow = value // 2
+        res.append(value % 2)
+
+    # если флаг переполнения установлен - добавить бит в начало нового числа
+    if overflow == 1:
+        res.append(1)
+
+    # перевернуть число назад
+    res = res[::-1]
+
+    return ''.join(map(str, res))
 
 
 def read_input() -> Tuple[str, str]:
