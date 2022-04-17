@@ -2,6 +2,8 @@ from typing import List, Tuple
 
 
 def get_sum(number_list: List[int], k: int) -> List[int]:
+    # connected_numbers = int(''.join(map(str, number_list))) + int(k)
+    # return list(map(int, str(connected_numbers)))
     return list(map(int, str(int(''.join(map(str, number_list))) + int(k))))
 
 
