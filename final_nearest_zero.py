@@ -31,17 +31,31 @@
 from typing import List
 
 
-def nearest_zero(number_list: List[int]) -> int:
-    result_str = ''
-    result = {}
-    for index, elem in enumerate(number_list):
-        result[elem] = index
+def nearest_zero(number_list: List[int]) -> List[int]:
+    """
+    The function takes a list of numbers from 0 to 109,
+        where each number is a segment. The number 0 means a plot
+        without a house. And returns a list with the distance from
+        each House to the empty lot.
+    """
+    number_plots = len(number_list)
+    result = [0] * number_plots
+    zero_indices = [i for i in range(number_plots) if number_list[i] == 0]
 
-    for key, value in result.items():
-        if result[key] >= result[0]:
-            result[key] -= (result[0] + 1)
+    for i in range(zero_indices[0], number_plots):
+        if number_list[i] == 0:
+            result[i] = 0
         else:
-            result[key] += (result[0] + 1)
+            result[i] = result[i - 1] + 1
+
+    for i in range(zero_indices[-1], zero_indices[0], -1):
+        if number_list[i] == 0:
+            result[i] = 0
+        else:
+            result[i] = min(result[i], result[i + 1] + 1)
+
+    for i in range(zero_indices[0] - 1, -1, -1):
+        result[i] = result[i + 1] + 1
     return result
 
 
@@ -51,5 +65,4 @@ def read_input() -> List[int]:
 
 
 number_list = read_input()
-# print(" ".join(map(str, nearest_zero(number_list))))
-print(nearest_zero(number_list=number_list))
+print(" ".join(map(str, nearest_zero(number_list))))
