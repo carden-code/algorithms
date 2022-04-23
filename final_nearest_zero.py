@@ -60,6 +60,10 @@ def nearest_zero(number_list: List[int]) -> List[int]:
 
 
 def read_input() -> List[int]:
+    """
+    This function reads data from standard input and
+        returns a list numbers.
+    """
     n = int(input())
     return list(map(int, input().strip().split()))
 
