@@ -32,6 +32,9 @@
 
 from typing import List, Tuple
 
+NUMBER_OF_LINES = 4
+PLAYERS = 2
+
 
 def sleight_of_hand(character_list: List[str], number_clicks: int) -> int:
     """
@@ -44,7 +47,7 @@ def sleight_of_hand(character_list: List[str], number_clicks: int) -> int:
     """
     result = 0
     for s in set(character_list):
-        if s != '.' and character_list.count(s) <= number_clicks * 2:
+        if s != '.' and character_list.count(s) <= number_clicks * PLAYERS:
             result += 1
     return result
 
@@ -55,12 +58,8 @@ def read_input() -> Tuple[List[str], int]:
         returns a list of characters and a K number.
     """
     number_clicks = int(input())
-    number_of_lines = 4
-    result = ''
-    while number_of_lines:
-        result += input().strip()
-        number_of_lines -= 1
-    return list(result), number_clicks
+    char_list = ''.join((input().strip() for _ in range(NUMBER_OF_LINES)))
+    return list(char_list), number_clicks
 
 
 char_list, clicks = read_input()
