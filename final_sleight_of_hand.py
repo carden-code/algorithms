@@ -38,18 +38,23 @@ PLAYERS = 2
 
 def sleight_of_hand(character_list: List[str], number_clicks: int) -> int:
     """
-    This function takes a list of characters and the number of clicks,
-        in a loop counts the number of each character in the list and
-        compares it with the number of clicks multiplied by 2,
-        and if the number of characters is more than 1 and
-        not more than the number of clicks, then 1 point is assigned.
-        Returns an integer number of points.
+    This function takes a list of characters and a number of clicks.
+        In the loop, we go over all the elements and if the element is not
+        a point and it is not in the deleted set, we add 1 to the dictionary.
+        If the number of elements exceeds the number of
+        clicks * on the number of players, then remove the element
+        from the dictionary and add it to the deleted set.
+        And return the length of the dictionary.
     """
-    result = 0
-    for s in set(character_list):
-        if s != '.' and character_list.count(s) <= number_clicks * PLAYERS:
-            result += 1
-    return result
+    del_char = set()
+    counnt_dict = {x: 0 for x in set(character_list) if x != '.'}
+    for s in character_list:
+        if s != '.' and s not in del_char:
+            counnt_dict[s] += 1
+            if counnt_dict[s] > number_clicks * PLAYERS:
+                del_char.add(s)
+                del counnt_dict[s]
+    return len(counnt_dict)
 
 
 def read_input() -> Tuple[List[str], int]:
@@ -62,6 +67,6 @@ def read_input() -> Tuple[List[str], int]:
     return list(char_list), number_clicks
 
 
-char_list, clicks = read_input()
-
-print(sleight_of_hand(character_list=char_list, number_clicks=clicks))
+if __name__ == '__main__':
+    char_list, clicks = read_input()
+    print(sleight_of_hand(character_list=char_list, number_clicks=clicks))
