@@ -68,5 +68,6 @@ def read_input() -> List[int]:
     return list(map(int, input().strip().split()))
 
 
-number_list = read_input()
-print(" ".join(map(str, nearest_zero(number_list))))
+if __name__ == '__main__':
+    number_list = read_input()
+    print(" ".join(map(str, nearest_zero(number_list))))
