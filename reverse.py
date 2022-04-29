@@ -1,4 +1,3 @@
-# Comment it before submitting
 class DoubleConnectedNode:
     def __init__(self, value, next=None, prev=None):
         self.value = value
