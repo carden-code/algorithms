@@ -32,7 +32,7 @@ class StackMax:
         return self.items.pop() if self.items else print('error')
 
     def get_max(self):
-        print(max(self.items)) if self.items else print(None)
+        print(max(self.items, default=None))
 
 
 stack = StackMax()
