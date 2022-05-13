@@ -1,3 +1,4 @@
+# 68335413
 class Deque:
     def __init__(self, max_size: int) -> None:
         self.queue: list = [None] * max_size
@@ -26,7 +27,7 @@ class Deque:
         self.head = (self.head - 1) % self.max_n
         self.size += 1
 
-    def pop_front(self) -> None:
+    def pop_front(self) -> int:
         if self.is_empty():
             raise IndexError('Deque is empty')
         value = self.queue[self.head]
@@ -34,7 +35,7 @@ class Deque:
         self.size -= 1
         return value
 
-    def pop_back(self) -> None:
+    def pop_back(self) -> int:
         if self.is_empty():
             raise IndexError('Deque is empty')
         value = self.queue[self.tail - 1]
@@ -48,28 +49,23 @@ def main() -> None:
     max_size = int(input())
     my_dec = Deque(max_size=max_size)
 
+    commands = {
+        'push_back': my_dec.push_back,
+        'push_front': my_dec.push_front,
+        'pop_front': my_dec.pop_front,
+        'pop_back': my_dec.pop_back
+    }
+
     for _ in range(number_commands):
         list_command = input().split()
-        if list_command[0] == 'push_back':
-            value = int(list_command[1])
+        if len(list_command) > 1:
             try:
-                my_dec.push_back(value)
+                commands[list_command[0]](value=list_command[1])
             except IndexError:
                 print('error')
-        elif list_command[0] == 'push_front':
-            value = int(list_command[1])
+        else:
             try:
-                my_dec.push_front(value)
-            except IndexError:
-                print('error')
-        elif list_command[0] == 'pop_front':
-            try:
-                print(my_dec.pop_front())
-            except IndexError:
-                print('error')
-        elif list_command[0] == 'pop_back':
-            try:
-                print(my_dec.pop_back())
+                print(commands[list_command[0]]())
             except IndexError:
                 print('error')
 
