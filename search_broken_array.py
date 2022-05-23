@@ -2,12 +2,11 @@
 from typing import Tuple
 
 
-def read_input() -> Tuple[int, int, list]:
+def read_input() -> Tuple[int, list]:
     """Read input."""
-    len_array = int(input())
-    element = int(input())
+    _, element = input(), int(input())
     list_nubers = list(map(int, input().strip().split()))
-    return len_array, element, list_nubers
+    return element, list_nubers
 
 
 def broken_search(array: list, search_element: int) -> int:
@@ -35,5 +34,5 @@ def broken_search(array: list, search_element: int) -> int:
 
 
 if __name__ == '__main__':
-    length_array, search_value, array = read_input()
+    search_value, array = read_input()
     print(broken_search(array, search_value))
