@@ -20,6 +20,7 @@ def broken_search(array: list, search_element: int) -> int:
         middle = (start + end) // 2
         if array[middle] == search_element:
             return middle
+
         if array[start] <= array[middle]:
             if array[start] <= search_element < array[middle]:
                 end = middle - 1
